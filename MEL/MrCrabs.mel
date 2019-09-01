@@ -1,0 +1,123 @@
+{
+int $width = 2;
+int $height = 1;
+string $body[];
+string $objects[];
+
+//Body
+$body = `polyCylinder -radius $width -h $height`;
+setAttr "polyCylinder1.subdivisionsAxis" 9.7;
+select -r pCylinder1.vtx[3] pCylinder1.vtx[5] pCylinder1.vtx[13] pCylinder1.vtx[15] ;
+move -r 0.601219 0 0 ;
+select -r pCylinder1.vtx[11:12] pCylinder1.vtx[16:17] ;
+move -r 0 -0.441503 0 ;
+select -r pCylinder1.vtx[10] pCylinder1.vtx[13] pCylinder1.vtx[15] pCylinder1.vtx[18] ;
+move -r 0 -0.184021 0 ;
+select -r pCylinder1.vtx[14] ;
+move -r 0 -0.272217 0 ;
+select -r pCylinder1.e[0:9] ;
+scale -r -p -1.19209e-07cm -0.5cm -1.19209e-07cm 1.420426 1.420426 1.420426 ;
+$objects[size($objects)] = $body[0];
+rename "pCylinder1" "Shell";
+$objects[0] = "Shell";
+
+//Eye
+$body = `polySphere`;
+rotate -r -os -fo -3.617 -18.191629 -90 ;
+setAttr "polySphere1.subdivisionsAxis" 6;
+setAttr "polySphere1.subdivisionsHeight" 4;
+scale -r ($height*0.5) ($height*0.5) ($height*0.5) ;
+move -absolute -worldSpace ($width*0.75) ($width*.8) ($width*0.25) $body[0];;
+$objects[size($objects)] = $body[0];
+
+select -r pSphere1.f[5] ;
+polyExtrudeFacet -constructionHistory 1 -keepFacesTogether 1 -pvx 1.309916781 -pvy 1.214548939 -pvz 0.4109632464 -divisions 1 -twist 0 -taper 1 -off 0 -thickness 0 -smoothingAngle 30 pSphere1.f[5];
+setAttr "polyExtrudeFace1.localTranslate" -type double3 0 0 0.95923 ;
+scale -r -p 0.962196cm 0.357179cm 0.247297cm 0.360951 0.360951 0.360951 ;
+rename "pSphere1" "Eye1";
+select -r Eye1 ;
+duplicate -rr;
+rotate -r -ws -fo -24.160519 0 0 ;
+move -r 0 -0.278643 -1.157439 ;
+
+$objects[1] = "Eye1";
+$objects[size($objects)] = "Eye2";
+
+//Leg
+$body = `polyCube`;
+select -r pCube1.vtx[0] pCube1.vtx[7] ;
+scale -r -p 0cm -0.5cm 0cm 3.770798 3.770798 3.770798 ;
+select -r pCube1.vtx[2] pCube1.vtx[5] ;
+scale -r -p 0cm 0.5cm 0cm 1.921551 1.921551 1.921551 ;
+move -r 0 -0.307285 0 ;
+select -r pCube1.vtx[3:4] ;
+performPolyMerge 0;
+$objects[size($objects)] = $body[0];
+
+move -absolute -worldSpace 0 ($height*-1) 0 $body[0];
+
+rename "pCube1" "Leg1";
+
+//Duplicate and Position Legs
+select -cl  ;
+select -r Leg1 ;
+duplicate -rr;
+rotate -r -os -fo 0 -90 0 ;
+duplicate -rr;
+rotate -r -os -fo 0 -45 0 ;
+move -r 0 0 -4.287052 ;
+rotate -r -ws -fo -26.619825 0 0 ;
+
+select -r Leg2 ;
+move -r -2.330545 0 -3.395115 ;
+rotate -r -os -fo 16.831873 -2.38915 16.896736 ;
+
+select -r Leg1 ;
+move -r 2.157912 0 -3.481432 ;
+rotate -r -os -fo -17.72677 -1.189946 -17.188662 ;
+
+//Create Pinchers
+select -r Leg1 ;
+select -tgl Leg3 ;
+duplicate -rr;
+select -r Leg5 ;
+move -r 0.768619 0 0.301218 ;
+select -r Leg4 Leg5 ;
+polyUnite -ch 1 -mergeUVSets 1 -centerPivot -name Leg5 Leg5 Leg4;
+rotate -r -os -fo -83.569759 -17.47892 71.521732 ;
+scale -r 0.720844 0.720844 0.720844 ;
+move -r 1.931753 0 2.130307 ;
+move -r 0 0.245553 0 ;
+makeIdentity -apply true -t 1 -r 1 -s 1 -n 0 -pn 1;
+duplicate -rr;
+scale -r 1 1 -1 ;
+move -r 0 0 3.526024 ;
+scale -r 1.289424 1.289424 1.289424 ;
+
+rename "Leg6" "Pincher1";
+rename "Leg7" "Pincher2";
+$objects[3] = "Pincher1";
+$objects[size($objects)] = "Pincher2";
+
+//Make Other Side of Legs
+polyUnite -ch 1 -mergeUVSets 1 -centerPivot -name Leg1 Leg1 Leg2 Leg3;
+duplicate -rr;
+scale -r 1 1 ($height*-1) ;
+move -r 0 0 ($height*8) ;
+
+$objects[size($objects)] = "Leg6";
+$objects[size($objects)] = "Leg7";
+
+//Close Up
+print $objects;
+
+polyUnite $objects;
+doGroup 0 1 1;
+doGroup 0 1 1;
+rename "group1" "Crabs";
+rename "group2" "Geometry";
+rename "polySurface1" "MR";
+
+DeleteAllHistory
+Delete -all -constructionHistory;
+}
