@@ -1,0 +1,19 @@
+{
+string $objects[] = `ls -sl`;
+string $duplic;
+
+int $x = -2;
+int $y = 2;
+int $amount = 50;
+
+for ($i=0; $i<$amount; ++$i) 
+{
+$objects = `polyCube`; 
+{
+setAttr ($duplic + ".translateX") (rand($x,$y));
+setAttr ($duplic + ".translateY") (rand($x,$y));
+setAttr ($duplic + ".translateZ") (rand($x,$y));
+}
+}
+
+}
