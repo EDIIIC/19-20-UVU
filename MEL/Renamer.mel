@@ -1,35 +1,32 @@
-//define procedure
-proc ObjectRename(string $name)
+//create procedure
+proc RenameIncremental (string $name)
 {
-//select objects
-string $selected[] = `ls -sl`;
-string $objects[] = $selected;
+    string $tokens[];
+    string $sels[];
+    
+    tokenize $name "#" $tokens;
 
-//flexible stuff
-string $strings[];
-string $tokens[];
+    $sels = `ls -sl`;
+//check status of ##'s in name
+    if (size($tokens) !=2)
+        error("Input string must be in the form \"Prefix_##_Suffix\"");
+//resize with padding
+    int $digitsDelimiter = size($name) - size($tokens[0]) - size($tokens[1]);
 
-string $prefix;
-string $suffix;
-
-string $tokenizer = "#";
-
-int $argument;
-
-//Get name
-$argument = `size($name)`;
-tokenize $name "#" $tokens;
-    if(startsWith($name, $tokenizer))
+    for($i=0; $i<size($sels); $i++)
     {
-	    $prefix = "_";
-	    $suffix = $strings[0];
+       int $digitsIter = `size((string)($i+1))`;
+       int $numPads = $digitsDelimiter - $digitsIter;
+       string $pad = "";
+      
+       for($j=0; $j<$numPads; $j++) 
+       {
+           $pad = $pad + "0";
+       }
+//rename      
+       string $newName = $tokens[0] + $pad + ($i + 1) + $tokens[1];
+       rename $sels[$i] $newName;
     }
-	else
-	{
-		$prefix = $strings[0];
-		$suffix = $strings[1];
-	}
 }
-
-//run and rename
-ObjectRename("Body_##_Geo")
+//run procedure
+RenameIncremental("R_Arm_##_Jnt");
