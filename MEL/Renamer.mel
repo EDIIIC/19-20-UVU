@@ -1,0 +1,35 @@
+//define procedure
+proc ObjectRename(string $name)
+{
+//select objects
+string $selected[] = `ls -sl`;
+string $objects[] = $selected;
+
+//flexible stuff
+string $strings[];
+string $tokens[];
+
+string $prefix;
+string $suffix;
+
+string $tokenizer = "#";
+
+int $argument;
+
+//Get name
+$argument = `size($name)`;
+tokenize $name "#" $tokens;
+    if(startsWith($name, $tokenizer))
+    {
+	    $prefix = "_";
+	    $suffix = $strings[0];
+    }
+	else
+	{
+		$prefix = $strings[0];
+		$suffix = $strings[1];
+	}
+}
+
+//run and rename
+SequentialRenamer("Body_##_Geo")
