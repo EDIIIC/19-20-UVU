@@ -32,4 +32,4 @@ tokenize $name "#" $tokens;
 }
 
 //run and rename
-SequentialRenamer("Body_##_Geo")
+ObjectRename("Body_##_Geo")
