@@ -1,0 +1,81 @@
+//    Input Numbers:
+float $a = 4;
+float $b = 2;
+
+
+//    SUM
+proc float Add(float $num1, float $num2)
+{
+    float $total;
+    $total = $num1 + $num2;
+    
+    return $total;
+}
+Add($a, $b);
+print ("\n" + $a + " + " + $b + " = " + Add($a, $b) + "\n");
+
+
+//    DIFFERENCE 
+proc float Subtract(float $num1, float $num2)
+{
+	    float $total;
+    $total = $num1 - $num2;
+    return $total;
+}
+Subtract($a, $b);
+print ("\n" + $a + " - " + $b + " = " + Subtract($a, $b) + "\n");
+
+
+//    MULTIPLICATION
+proc float Multiply(float $num1, float $num2)
+{
+	    float $total;
+    $total = $num1 * $num2;
+    return $total;
+}
+Multiply($a, $b);
+print ("\n" + $a + " * " + $b + " = " + Multiply($a, $b) + "\n");
+
+
+//    DIVISION
+proc float Divide(float $num1, float $num2)
+{
+	    float $total;
+    $total = $num1 / $num2;
+    return $total;
+}
+Divide($a, $b);
+print ("\n" + $a + " / " + $b + " = " + Divide($a, $b) + "\n");
+
+
+//    POWER
+proc float Power(float $num1, float $num2)
+{
+	    if ($num2 == 0)
+	        {
+                return 1;
+            }
+            else
+            {
+                return $num1 * Power($num1, $num2-1);
+            }
+}
+print ("\n" + $a + " ^ " + $b + " = " + Power($a, $b) + "\n");
+
+
+//    MEAN
+proc float Mean(float $num1, float $num2)
+{
+    int $sizeM = 2;
+    float $total;
+    $total = ($num1 + $num2) / $sizeM;
+    
+    return $total;
+}
+Mean($a, $b);
+print ("\nThe mean of " + $a + " and " + $b + " is " + Mean($a, $b) + "\n");
+
+
+//    MEDIAN
+
+//    MODE
