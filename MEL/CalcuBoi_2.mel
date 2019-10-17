@@ -1,0 +1,119 @@
+//    SUM
+global proc float Add(float $nums[])
+{
+    float $total = 0;
+    for($i = 0; $i < size($nums); $i++)
+    {
+        $total += $nums[$i];
+    }
+    return $total;
+}
+Add({4, 2});
+
+
+//    DIFFERENCE 
+global proc float Subtract(float $nums[])
+{
+    float $total = $nums[0];
+    for($i = 1; $i < size($nums); $i++)
+    {
+        $total -= $nums[$i];
+    }
+    return $total;
+}
+Subtract({4, 2});
+
+
+//    MULTIPLICATION
+global proc float Multiply(float $nums[])
+{
+    float $total = $nums[0];
+    for($i = 1; $i < size($nums); $i++)
+    {
+        $total *= $nums[$i];
+    }
+    return $total;
+}
+Multiply({4, 2});
+
+
+//    DIVISION
+global proc float Divide(float $nums[])
+{
+    float $total = $nums[0];
+    for($i = 1; $i < size($nums); $i++)
+    {
+        $total /= $nums[$i];
+    }
+    return $total;
+}
+Divide({4, 2});
+
+
+//    POWER
+global proc float Power(float $nums[])
+{
+    float $result = $nums[0];
+	float $exp = $nums[1];
+	
+	if($exp == 0)
+	{
+		return 1;
+	}
+	else
+	{
+	    $expoNum = `expo $nums[0] $nums[1]`;
+
+        $nums[0] = $result;
+	    $nums[1] = $exp - 1;
+	    return $expoNum;
+	}
+}
+
+
+/*    MEAN
+global proc float Mean(float $mean[])
+{
+	float $result = Add($mean) / size($mean);
+	return $result;
+}
+*/
+
+//    MEDIAN
+
+//    MODE
+
+//    Calculator
+proc Calculator (float $operations, float $digits[])
+{
+
+    if ($operations == 0)
+    {
+        print ("\n" + "Add: ");
+        print (Add($digits));
+    }
+    else if ($operations == 1)
+    {
+        print ("\n" + "Subtract: ");
+        print (Subtract($digits));
+    }
+    else if ($operations == 2)
+    {
+        print ("\n" + "Multiply: ");
+        print (Multiply($digits));
+    }
+      else if ($operations == 3)
+    {
+        print ("\n" + "Division: ");
+        print (Divide($digits));
+    }
+       else if ($operations == 4)
+    {
+        print ("\n" + "To the Power: ");
+        print (Power($digits));
+    }
+       else if ($operations == 5)
+    {
+        print ("\n" + "Mean: ");
+        print (Mean($digits));
+    }
