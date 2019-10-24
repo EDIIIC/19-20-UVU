@@ -1,0 +1,58 @@
+proc CenterLocator (string $type)
+{
+// GET SELECTED
+string $sels [] = `ls -sl`;
+float $Bbox[];
+float $X;
+float $Y;
+float $Z;
+
+if(!size($sels))
+{
+    error ("must select an object");
+}
+
+// PICK LOCATOR TYPE
+    /*
+    One object selected? Object Geo
+    More than one? All Geo  // <
+    */
+
+if ($type == "ObjectGeo")
+{
+    for ($i=0; $i < size($sels); $i++)
+    {
+// GET BB BORDERS
+     $Bbox = `xform -q -ws -boundingBox $sels[$i]`;
+     //print $Bbox;
+     
+// FIND CENTERS
+     $X = (($Bbox[0]) + ($Bbox[3])) /2;
+     $Y = (($Bbox[1]) + ($Bbox[4])) /2;
+     $Z = (($Bbox[2]) + ($Bbox[5])) /2;
+       
+// SET AVERAGES TO SPACELOCATOR
+     spaceLocator -p $X $Y $Z -n ("CenterLoc" + $i); 
+    }  
+}
+
+if ($type == "AllGeo")
+{
+    string $dups[] = `duplicate $sels`;
+    $dups = `polyUnite $dups`;
+    delete -ch $dups;
+
+    $Bbox = `xform -q -bb $dups[0]`;
+    //print $Bbox;
+    delete $dups[0];
+    
+    $X = (($Bbox[0]) + ($Bbox[3])) /2;
+    $Y = (($Bbox[1]) + ($Bbox[4])) /2;
+    $Z = (($Bbox[2]) + ($Bbox[5])) /2;
+    spaceLocator -p $X $Y $Z -n "CenterLoc" ;
+}
+
+
+}
+CenterLocator ("ObjectGeo");
+//CenterLocator ("AllGeo");
