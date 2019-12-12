@@ -21,4 +21,4 @@ def colorChange(color):
         for shape in shapes:
             cmds.setAttr('%s.overrideEnabled' % shape, True)
             cmds.setAttr('%s.overrideColor' % shape, color)
-#colorChange('red')
+colorChange('red')
