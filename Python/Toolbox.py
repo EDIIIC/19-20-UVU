@@ -1,42 +1,37 @@
-# Pre-Toolbox
 import maya.cmds as cmds
 import random
 
 class ECToolbox():
     def __init__(self):
-        self.window_name = "Ethan's ToolBox"
+        self.window_name = "Ethan's Super Duper ToolBox"
         
     def create(self):
         self.delete()
-        
         self.window_name = cmds.window(self.window_name)
         self.m_column = cmds.columnLayout(p = self.window_name, adj = True)
         
-### Buttons ###                 
+### Buttons ###          
         cmds.button(p = self.m_column,
                     label = 'Select All',
-                    command = lambda *args: cmds.select(all = True))
-
+                    command = lambda *args: cmds.select(all = True))     
+        cmds.button(p = self.m_column, label='Calculator', 
+                    command = lambda *args: calcy.create()) 
         cmds.button(p = self.m_column, label='Random Placement Generator', 
-                    command = lambda *args: randPlaceGenScript.create())                                                         
-             
+                    command = lambda *args: randPlaceGen.create()) 
         cmds.button(p = self.m_column,
                     label = 'Create Control',
-                    command = lambda *args: self.controlSpawn())  
-                                                   
+                    command = lambda *args: self.controlSpawn())
         cmds.rowColumnLayout(p = self.m_column, numberOfColumns=5)
         self.color = cmds.textField(placeholderText="Enter Color Name...")
         cmds.button(label='Change Wire Color', 
                     command=lambda *args: self.colorBtn())
-
         cmds.rowColumnLayout(p = self.m_column, numberOfColumns=5)
         cmds.text(label='Create Locator:  ')
         cmds.button(label='Group Center', 
                     command=lambda *args: self.centerLocator())
         cmds.text(label='  or  ')            
         cmds.button(label='Individual Center', 
-                    command=lambda *args: self.centerIndividual())                     
-
+                    command=lambda *args: self.centerIndividual()) 
         cmds.rowColumnLayout(p = self.m_column, numberOfColumns=5)
         self.name = cmds.textField(placeholderText="Enter Name...")
         cmds.text(label='#')
@@ -47,7 +42,7 @@ class ECToolbox():
                                                          
         cmds.showWindow(self.window_name)
         
-### Rename ###
+### Sequential Renamer ###
     def seqRename(self,name,suffix):
         numberType = str()
         numberLoop = str()
@@ -59,8 +54,7 @@ class ECToolbox():
     
         for i in range(0, len(sels)):
             numberType = str()
-            numberLoop = str(i + 1)
-        
+            numberLoop = str(i + 1)        
             for j in range(chars - len(numberLoop)):
                 numberType += str("0")
             numberType += str(i + 1)
@@ -77,7 +71,6 @@ class ECToolbox():
         x = ((borders[3] + borders[0]) / 2)
         y = ((borders[4] + borders[1]) / 2)
         z = ((borders[5] + borders[2]) / 2)
-        
         cmds.spaceLocator(name="Center")
         cmds.move(x, y, z, "Center")
         cmds.delete(obj[0])
@@ -89,10 +82,9 @@ class ECToolbox():
         scalePiv = cmds.xform(sel, q=True, sp=True)
         locator = cmds.spaceLocator()
         cmds.xform(t=rotPiv)
-
         return locator
 
-### Control Spawner ###
+### Control Creator ###
     def controlSpawn(self):
         sels = cmds.ls(sl=True)
     
@@ -132,7 +124,6 @@ class ECToolbox():
 
         for sel in sels:
             shapes = cmds.listRelatives(sel, children=True, shapes=True)
-            
             for shape in shapes:
                 cmds.setAttr('%s.overrideEnabled' % shape, True)
                 cmds.setAttr('%s.overrideColor' % shape, color)
@@ -140,16 +131,15 @@ class ECToolbox():
     def delete(self):
         if cmds.window(self.window_name, exists = True):
             cmds.deleteUI(self.window_name)
-            
+
 ### Random Generator ###            
 class RandSpawn():
 	def __init__(self):
-		self.window_name = 'RandomPlacementWindow'		
+		self.window_name = 'Random Placement Generator'		
 
 	def create(self):
-		self.delete()		
-		self.window_name = "RandomPlacementWindow"		
-		self.window_name = cmds.window(self.window_name, title = "Random Placement Generator")
+		self.delete()			
+		self.window_name = cmds.window(self.window_name)
 		self.mainCol = cmds.columnLayout(p = self.window_name, adjustableColumn=True, rowSpacing=12)
 		
 		self.dupRowLayout = cmds.rowLayout(p = self.mainCol, numberOfColumns= 3)
@@ -179,12 +169,192 @@ class RandSpawn():
 			cmds.move (xPos, zPos, zPos, r=True)
 			i+=1
 			
-			
 	def delete(self):
 		if cmds.window(self.window_name, exists=True):
 			cmds.deleteUI(self.window_name)
-		
-		
-randPlaceGenScript = RandSpawn()			        
+            
+### Calculator ###            
+class Calcuboi():
+    def __init__(self):
+        self.window_name = "Calcuboi"
+
+    def create(self):
+        self.delete()
+        self.window_name = cmds.window(self.window_name)
+        self.m_column = cmds.columnLayout(p = self.window_name, adj = True, rowSpacing=12)
+        self.dupRowLayout = cmds.rowLayout(p = self.m_column, numberOfColumns= 3)
+        cmds.text(label='Calculator: ')
+        self.values = cmds.textField(placeholderText="## # #...")      
+        cmds.rowColumnLayout(p = self.m_column, numberOfColumns=4)
+        cmds.button(label='+', 
+                    command=lambda *args: self.Addition())           
+        cmds.button(label='-', 
+                    command=lambda *args: self.Subtraction())            
+        cmds.button(label='*', 
+                    command=lambda *args: self.Multiplication())           
+        cmds.button(label='/', 
+                    command=lambda *args: self.Division()) 
+        cmds.rowColumnLayout(p = self.m_column, numberOfColumns=4)                    
+        cmds.button(label='Mean', 
+                    command=lambda *args: self.MeanB())           
+        cmds.button(label='Median', 
+                    command=lambda *args: self.MedianB()) 
+        cmds.button(label='Mode', 
+                    command=lambda *args: self.ModeB())           
+        cmds.rowColumnLayout(parent= self.m_column, numberOfColumns=3)
+        self.Numberone = cmds.intField()
+        cmds.button(label="^",
+                    command=lambda *args: self.Power(cmds.intField(self.Numberone, query=True, value= True), 
+                                                     cmds.intField(self.Numbertwo, query=True, value= True)))
+        self.Numbertwo = cmds.intField()        
+
+        cmds.showWindow(self.window_name)
+        
+    def Add(self,values):
+        '''
+        Adds list of numbers together and returns result
+        input: list of float/int values
+        return: float
+        '''
+        sum = 0
+        for val in values:
+            sum += val          
+            print 'Sum: ', (sum)
+    def Addition(self):
+        calc = Calcuboi()
+        values = cmds.textField(self.values, query=True, text= True)
+        temp = values.split(" ")
+        expi = list()
+        for com in range(len(temp)):
+            expi.append(float(temp[com])) 
+        print calc.Add(expi)            
+
+    def Subtract(self,values):
+        '''
+        Takes a list of values, subtracts them and returns the result
+        input: a list of float/int values
+        return: float/int
+        '''
+        diff = values[0]
+        for val in range(1,len(values)):
+            diff -= values[val]
+            print 'Difference: ', (diff)
+    def Subtraction(self):
+        calc = Calcuboi()
+        values = cmds.textField(self.values, query=True, text= True)
+        temp = values.split(" ")
+        expi = list()
+        for com in range(len(temp)):
+            expi.append(float(temp[com])) 
+        print calc.Subtract(expi)
+
+    def Multiply(self,values):
+        '''
+        Takes a list of values, multiplies them and returns the result
+        input: a list of float/int values
+        return: float/int
+        '''        
+        multi = 1
+        for val in values:
+            multi = multi * val
+            print 'Multiplicinihilipilification: ', (multi)
+    def Multiplication(self):
+        calc = Calcuboi()
+        values = cmds.textField(self.values, query=True, text= True)
+        temp = values.split(" ")
+        expi = list()
+        for com in range(len(temp)):
+            expi.append(float(temp[com])) 
+        print calc.Multiply(expi)
+                
+    def Divide(self,values):
+        '''
+        Takes a list of values, divides them and returns the result
+        input: a list of float/int values
+        return: float/int
+        '''        
+        div = values[0]
+        for val in range(1,len(values)):
+            div /= values[val]
+            print 'Divided: ', (div)
+    def Division(self):
+        calc = Calcuboi()
+        values = cmds.textField(self.values, query=True, text= True)
+        temp = values.split(" ")
+        expi = list()
+        for com in range(len(temp)):
+            expi.append(float(temp[com])) 
+        print calc.Divide(expi)            
+
+    def Mean(self,values):
+        '''
+        Takes a list of values and finds the mean
+        input: float/int value, float/int power
+        return: float/int
+        '''        
+        total = 0
+        size = len(values)
+        for val in values:
+            total += val 
+        print 'Mean: ', (total/size)
+    def MeanB(self):
+        calc = Calcuboi()
+        values = cmds.textField(self.values, query=True, text= True)
+        temp = values.split(" ")
+        expi = list()
+        for com in range(len(temp)):
+            expi.append(float(temp[com])) 
+        print calc.Mean(expi)
+
+    def Median(self,values):
+        '''
+        Takes a list of values and finds the median
+        input: float/int value, float/int power
+        return: float/int
+        '''        
+        median = sorted(values)[len(values) / 2]
+        print 'Median: ', (median)
+    def MedianB(self):
+        calc = Calcuboi()
+        values = cmds.textField(self.values, query=True, text= True)
+        temp = values.split(" ")
+        expi = list()
+        for com in range(len(temp)):
+            expi.append(float(temp[com])) 
+        print calc.Median(expi)
+        
+    def Mode(self,values):
+        '''
+        Takes a list of values and finds the mode
+        input: float/int value, float/int power
+        return: float/int
+        '''        
+        mode = max(values, key = values.count)
+        print 'Mode: ', (mode)
+    def ModeB(self):
+        calc = Calcuboi()
+        values = cmds.textField(self.values, query=True, text= True)
+        temp = values.split(" ")
+        expi = list()
+        for com in range(len(temp)):
+            expi.append(float(temp[com])) 
+        print calc.Mode(expi)
+        
+    def Power (self,values,power):
+        '''
+        Takes a float/int value and raises to the power value and returns result
+        input: float/int value, float/int power
+        return: float/int
+        '''        
+        import math
+        print 'To the power: ', math.pow(values,power)   
+        return math.pow(values,power)   
+
+    def delete(self):
+        if cmds.window(self.window_name, exists=True):
+            cmds.deleteUI(self.window_name)
+
+calcy = Calcuboi()	
+randPlaceGen = RandSpawn()			        
 ecToolbox = ECToolbox()
 ecToolbox.create()
