@@ -1,6 +1,6 @@
 //Maya ASCII 2019 scene
 //Name: IVPump.ma
-//Last modified: Wed, Feb 12, 2020 11:44:18 AM
+//Last modified: Wed, Feb 12, 2020 11:49:02 AM
 //Codeset: UTF-8
 requires maya "2019";
 requires "stereoCamera" "10.0";
@@ -17,13 +17,13 @@ fileInfo "license" "student";
 createNode transform -s -n "persp";
 	rename -uid "17049E13-EF4C-AFED-5AD3-17B2E0D2417D";
 	setAttr ".v" no;
-	setAttr ".t" -type "double3" 75.827097486967588 14.097720226656129 15.668722174378008 ;
-	setAttr ".r" -type "double3" -11.13835666420368 -14324.599999998247 -6.3088879664016672e-15 ;
+	setAttr ".t" -type "double3" 90.228909933897896 43.059325887118447 -13.379592992695301 ;
+	setAttr ".r" -type "double3" -25.538356664187095 -14304.999999998212 0 ;
 createNode camera -s -n "perspShape" -p "persp";
 	rename -uid "2A0A073F-DE4B-F966-DA63-FCAC9EB90EC6";
 	setAttr -k off ".v" no;
 	setAttr ".fl" 34.999999999999986;
-	setAttr ".coi" 84.10760685907249;
+	setAttr ".coi" 104.86619963287441;
 	setAttr ".imn" -type "string" "persp";
 	setAttr ".den" -type "string" "persp_depth";
 	setAttr ".man" -type "string" "persp_mask";
