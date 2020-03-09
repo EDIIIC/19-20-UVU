@@ -17,7 +17,7 @@ RenderSettings:
   m_Fog: 1
   m_FogColor: {r: 0, g: 0, b: 0, a: 1}
   m_FogMode: 2
-  m_FogDensity: 0.004
+  m_FogDensity: 0.005
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
@@ -231,9 +231,9 @@ Transform:
   - {fileID: 1632305347}
   - {fileID: 700993253}
   - {fileID: 863031888}
-  - {fileID: 713870253}
   - {fileID: 1944635484}
   - {fileID: 900013846}
+  - {fileID: 713870253}
   - {fileID: 1168563994}
   - {fileID: 1364853259}
   - {fileID: 1382585484}
@@ -13849,6 +13849,7 @@ GameObject:
   m_Component:
   - component: {fileID: 698372611}
   - component: {fileID: 698372612}
+  - component: {fileID: 698372613}
   m_Layer: 0
   m_Name: Tree Lamp
   m_TagString: Untagged
@@ -13931,6 +13932,22 @@ Light:
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &698372613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 698372610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3feea7c82ede94e8ba588a45f59c121c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  light: {fileID: 0}
+  minIntensity: 0.5
+  maxIntensity: 1
+  smoothing: 7
 --- !u!1 &700993252
 GameObject:
   m_ObjectHideFlags: 0
@@ -14068,6 +14085,7 @@ GameObject:
   m_Component:
   - component: {fileID: 713870253}
   - component: {fileID: 713870254}
+  - component: {fileID: 713870255}
   m_Layer: 0
   m_Name: Fire
   m_TagString: Untagged
@@ -14087,7 +14105,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 33857767}
-  m_RootOrder: 4
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!108 &713870254
 Light:
@@ -14150,6 +14168,22 @@ Light:
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &713870255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 713870252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3feea7c82ede94e8ba588a45f59c121c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  light: {fileID: 0}
+  minIntensity: 0.5
+  maxIntensity: 1
+  smoothing: 7
 --- !u!1 &714412400
 GameObject:
   m_ObjectHideFlags: 0
@@ -15669,7 +15703,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 33857767}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!108 &900013847
 Light:
@@ -16845,6 +16879,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1168563994}
   - component: {fileID: 1168563995}
+  - component: {fileID: 1168563996}
   m_Layer: 0
   m_Name: Ally Lamp
   m_TagString: Untagged
@@ -16927,6 +16962,22 @@ Light:
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &1168563996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1168563993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3feea7c82ede94e8ba588a45f59c121c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  light: {fileID: 0}
+  minIntensity: 0.5
+  maxIntensity: 1
+  smoothing: 7
 --- !u!1 &1178906474
 GameObject:
   m_ObjectHideFlags: 0
@@ -18139,6 +18190,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1364853259}
   - component: {fileID: 1364853260}
+  - component: {fileID: 1364853261}
   m_Layer: 0
   m_Name: Shed Lamp
   m_TagString: Untagged
@@ -18221,6 +18273,22 @@ Light:
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &1364853261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1364853258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3feea7c82ede94e8ba588a45f59c121c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  light: {fileID: 0}
+  minIntensity: 0.5
+  maxIntensity: 1
+  smoothing: 7
 --- !u!1 &1382585483
 GameObject:
   m_ObjectHideFlags: 0
@@ -18231,6 +18299,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1382585484}
   - component: {fileID: 1382585485}
+  - component: {fileID: 1382585486}
   m_Layer: 0
   m_Name: Mine Lamp
   m_TagString: Untagged
@@ -18313,6 +18382,22 @@ Light:
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &1382585486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1382585483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3feea7c82ede94e8ba588a45f59c121c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  light: {fileID: 0}
+  minIntensity: 0.41
+  maxIntensity: 0.62
+  smoothing: 7
 --- !u!1 &1392440508
 GameObject:
   m_ObjectHideFlags: 0
@@ -21071,7 +21156,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 33857767}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!108 &1944635485
 Light:

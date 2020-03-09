@@ -7,10 +7,10 @@ public class LevelManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
-        }
+//        if (Input.GetKeyDown(KeyCode.Escape))
+//        {
+//            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+//        }
     }
 
     public void LevelLoad(string lvl)
